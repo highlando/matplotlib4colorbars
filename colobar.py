@@ -53,9 +53,26 @@ def exp_colormap(cmap=None, horizontal=True, titlestr='$\\mathbf{v_x}$',
     if exp2tikz:
         from matplotlib2tikz import save as tikz_save
         fname = 'colorbar.tikz'
+        extraaxiopts = frozenset([
+            'scaled x ticks=false,\n' +
+            'xtick={,,},\n' +
+            'xticklabels={,,},\n' +
+            'extra y ticks={\n' +
+            '    \\pgfkeysvalueof{/pgfplots/ymin},\n' +
+            '    \\pgfkeysvalueof{/pgfplots/ymax}\n' +
+            '},\n' +
+            'every extra y tick/.style={\n' +
+            '    font=\\large,\n' +
+            '    tick style=transparent, \n' +
+            '    yticklabel pos=right,\n' +
+            '    /pgf/number format/.cd,\n' +
+            '    fixed,\n' +
+            '    precision=3\n' +
+            '},'])
         tikz_save(fname,
                   figureheight='\\figureheight',
-                  figurewidth='\\figurewidth'
+                  figurewidth='\\figurewidth',
+                  extra=extraaxiopts,
                   )
         print 'Plot saved to ' + fname
         print 'You may want to add \n'
@@ -63,7 +80,8 @@ def exp_colormap(cmap=None, horizontal=True, titlestr='$\\mathbf{v_x}$',
         print 'xtick={,,},'
         print 'xticklabels={,,},'
         # print 'yticklabels={{{0},,{1}}}, \n'.format(cmin, cmax)
-        print 'to the axis definition'
+
+    print 'to the axis definition'
 
     pyplot.show(block=False)
 
