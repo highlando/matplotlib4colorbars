@@ -8,6 +8,13 @@ are, e.g., exported from paraview.
 
 ![Example Screenshot](example-screenshot.png)
 
+## Example Setup
+
+```
+python3 colobar.py  # adjust here for colorbars and ranges
+pdflatex minilat.tex  # this includes the generated `colorbar.tikz`
+```
+
 ## Dependencies
 
 ```
