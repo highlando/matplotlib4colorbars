@@ -74,16 +74,17 @@ def exp_colormap(cmap=None, horizontal=True, titlestr='$\\mathbf{v_x}$',
                   figurewidth='\\figurewidth',
                   extra=extraaxiopts,
                   )
-        print 'Plot saved to ' + fname
-        print 'You may want to add \n'
-        print 'scaled x ticks=false,'
-        print 'xtick={,,},'
-        print 'xticklabels={,,},'
+        print('Plot saved to ' + fname)
+        print('You may want to add \n')
+        print('scaled x ticks=false,')
+        print('xtick={,,},')
+        print('xticklabels={,,},')
         # print 'yticklabels={{{0},,{1}}}, \n'.format(cmin, cmax)
 
-    print 'to the axis definition'
+    print('to the axis definition')
 
     pyplot.show(block=False)
 
+
 if __name__ == '__main__':
-    exp_colormap()
+    exp_colormap(mpl.cmap.PuOr)
