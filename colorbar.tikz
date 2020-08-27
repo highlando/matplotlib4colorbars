@@ -1,0 +1,31 @@
+% This file was created by tikzplotlib v0.9.1.
+\begin{tikzpicture}
+
+\begin{axis}[
+height=\figureheight,
+tick align=outside,
+tick pos=left,
+title={\(\displaystyle \mathbf{v_x}\)},
+width=\figurewidth,
+xmajorticks=false,
+extra y ticks={
+    \pgfkeysvalueof{/pgfplots/ymin},
+    \pgfkeysvalueof{/pgfplots/ymax}
+},
+every extra y tick/.style={
+    font=\large,
+    tick style=transparent, 
+    yticklabel pos=right,
+    /pgf/number format/.cd,
+    fixed,
+    precision=3
+},,
+xmin=0, xmax=0.07635,
+y grid style={white!69.0196078431373!black},
+ymin=-0.247, ymax=1.28,
+ytick style={color=black}
+]
+\addplot graphics [includegraphics cmd=\pgfimage,xmin=0, xmax=0.07635, ymin=-0.247, ymax=1.28] {colorbar-001.png};
+\end{axis}
+
+\end{tikzpicture}
