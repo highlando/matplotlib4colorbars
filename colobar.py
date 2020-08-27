@@ -1,7 +1,7 @@
 '''
 Make a colorbar as a separate figure.
 '''
-from matplotlib import pyplot, mpl
+import matplotlib.pyplot as plt
 import numpy as np
 
 
@@ -32,14 +32,16 @@ def exp_colormap(cmap=None, horizontal=True, titlestr='$\\mathbf{v_x}$',
     zrg = yrg*xrg
 
     if cmap is None:
-        cmap = mpl.cm.coolwarm
+        cmap = plt.get_cmap('coolwarm')
+        # cmap = mpl.cm.coolwarm
+        pass
     if horizontal:
         zrg = zrg.T
         figs = (1, figratio)
         dataextend = [0, 0.05*(cmax-cmin), cmin, cmax]
 
     # Make a figure and axes with dimensions as desired.
-    fig = pyplot.figure(figsize=figs)
+    fig = plt.figure(figsize=figs)
     ax1 = fig.add_subplot(111, aspect='equal')
     if horizontal:
         ax1.set_xticklabels([])
@@ -48,15 +50,15 @@ def exp_colormap(cmap=None, horizontal=True, titlestr='$\\mathbf{v_x}$',
         ax1.set_yticklabels([])
         ax1.set_yticks([])
     ax1.set_title(titlestr)
-    pyplot.imshow(zrg, cmap=cmap, extent=dataextend)
+    plt.imshow(zrg, cmap=cmap, extent=dataextend)
 
     if exp2tikz:
-        from matplotlib2tikz import save as tikz_save
+        from tikzplotlib import save as tikz_save
         fname = 'colorbar.tikz'
         extraaxiopts = frozenset([
-            'scaled x ticks=false,\n' +
-            'xtick={,,},\n' +
-            'xticklabels={,,},\n' +
+            'height=\\figureheight',
+            'width=\\figurewidth',
+            'xmajorticks=false,\n' +
             'extra y ticks={\n' +
             '    \\pgfkeysvalueof{/pgfplots/ymin},\n' +
             '    \\pgfkeysvalueof{/pgfplots/ymax}\n' +
@@ -70,10 +72,11 @@ def exp_colormap(cmap=None, horizontal=True, titlestr='$\\mathbf{v_x}$',
             '    precision=3\n' +
             '},'])
         tikz_save(fname,
-                  figureheight='\\figureheight',
-                  figurewidth='\\figurewidth',
-                  extra=extraaxiopts,
+                  # figureheight='\\figureheight',
+                  # figurewidth='\\figurewidth',
+                  extra_axis_parameters=extraaxiopts,
                   )
+        # tikz_save(fname)
         print('Plot saved to ' + fname)
         print('You may want to add \n')
         print('scaled x ticks=false,')
@@ -83,8 +86,8 @@ def exp_colormap(cmap=None, horizontal=True, titlestr='$\\mathbf{v_x}$',
 
     print('to the axis definition')
 
-    pyplot.show(block=False)
+    plt.show(block=False)
 
 
 if __name__ == '__main__':
-    exp_colormap(mpl.cmap.PuOr)
+    exp_colormap(plt.get_cmap('PuOr'))
